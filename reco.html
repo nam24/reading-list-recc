@@ -1,0 +1,137 @@
+<html>
+    <head>
+        <Title>Home</Title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.8.0/css/bulma.css"/>
+
+        <style>
+            body {
+                height: 100%;
+                max-width: 100%;
+            }
+            .content {
+                margin-top: 5vh;
+                margin-left: 10vw;
+                margin-right: 50vh;
+            }
+            select {
+                width: 50vh;
+            }
+            .input {
+                width: 60vh;
+            }
+            .button {
+                width: 10vw;
+                height: 5vh;
+            }
+            
+        </style>
+    </head>
+    <body>
+        <nav class="navbar is-transparent" role="navigation" aria-label="main navigation">
+            <div id="navbarBasicExample" class="navbar-menu">
+              <div class="navbar-start">
+                <a class="navbar-item">
+                  Home
+                </a>
+          
+                <a class="navbar-item">
+                  Documentation
+                </a>
+              </div>
+          
+              <div class="navbar-end">
+                <div class="navbar-item">
+                  <div class="buttons">
+                    <a class="navbar-item">
+                      <strong>Sign up</strong>
+                    </a>
+                    <a class="navbar-item">
+                      Log in
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </nav>
+        <section class="hero is-link is-bold">
+            <div class="hero-body">
+              <div class="container">
+                <h1 class="title">
+                  Reading List Recommendations
+                </h1>
+                <h2 class="subtitle">
+                  Get customised book recommendations
+                </h2>
+              </div>
+            </div>
+          </section>
+        
+        
+        <div class="content">
+           <form action="">
+            <div class="field">
+                <label class="label">Tags</label>
+                <div class="control">
+                  <input class="input" type="text" placeholder="Enter tag names for your search">
+                </div>
+              </div>
+              
+              <div class="field">
+                <label class="label">Author Name</label>
+                <div class="control">
+                  <input class="input" type="text" placeholder="Enter name of author">
+                </div>
+              </div>
+              
+              
+              <div class="field">
+                <label class="label">Rating</label>
+                <div class="control">
+                  <div class="select">
+                    <select>
+                      <option>Any</option>
+                      <option>>4</option>
+                      <option>>3</option>
+                      <option>>2</option>
+                      <option>>1</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div class="field">
+                <label class="label">Language</label>
+                <div class="control">
+                  <div class="select is-multiple">
+                    <select>
+                      <option>Any</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div class="field">
+                <label class="label">Publication Year</label>
+                <div class="control">
+                  <div class="select is-multiple">
+                    <select>
+                      <option>Any</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <br>
+              
+              <div class="field is-grouped">
+                <div class="control">
+                  <button class="button is-link">Submit</button>
+                </div>
+                <div class="control">
+                  <button class="button is-link is-light">Cancel</button>
+                </div>
+              </div>
+           </form>
+          </div>
+        
+    </body>
+</html>
