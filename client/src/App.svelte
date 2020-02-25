@@ -11,12 +11,12 @@
 	let showModal = false;
 </script>
 <style>
-	button {
+	/* button {
 		height: 30vh;
 		width: 40vw;
 		margin: 2vh;
 		font-size: 5vh;
-	}
+	} */
 	.content {
 		margin-top: 5vh;
 	}
@@ -29,7 +29,7 @@
 	<div class="hero-body">
 	  <div class="container">
 		<h1 class="title">
-		  Reading List Recommendations
+		  test Listkjkjkj Recommendations
 		</h1>
 		<h2 class="subtitle">
 		  Get customised book recommendations
@@ -43,13 +43,7 @@
 	<div class="options">
 		<button on:click="{() => showModal = true}"class="button is-hovered is-link is-light">Book Recommendations</button>
 	</div>
-	{#each data as item }
-		<div>
-			<p> {item.name} </p>
-			<p> {item.college_id} </p>
-		</div>
-	{/each}
-	
+	<br>
 	<div class="options">
 		<button class="button is-hovered is-link is-light">Get Information</button>
 	</div>
@@ -127,9 +121,13 @@
               </div>
            </form>
           </div>
-
-		<a href="https://www.merriam-webster.com/dictionary/modal">merriam-webster.com</a>
 	</Modal>
 {/if}
+{#each data as item }
+		<div>
+			<p> {item.name} </p>
+			<p> {item.college_id} </p>
+		</div>
+	{/each}
 
 
