@@ -1,7 +1,9 @@
-# Running the svelte front-end:
+# Running the svelte front-end:  
 
-cd client
-yarn install
+ 
+cd client  
+
+yarn install  
 yarn dev   --->run on a port different than the Flask server (say 5555)
 
 # Running the backend example:
