@@ -57,27 +57,19 @@
 
         
         <div class="content">
-           <form action="">
+           <form action="" method="POST">
             <div class="field">
                 <label class="label">Tags</label>
                 <div class="control">
-                  <input class="input" type="text" placeholder="Enter tag names for your search">
+                  <input class="input" type="text" placeholder="Enter tag names for your search" id="tags" name="tags">
                 </div>
               </div>
-              
-              <div class="field">
-                <label class="label">Author Name</label>
-                <div class="control">
-                  <input class="input" type="text" placeholder="Enter name of author">
-                </div>
-              </div>
-              
               
               <div class="field">
                 <label class="label">Rating</label>
                 <div class="control">
                   <div class="select">
-                    <select>
+                    <select name="rating">
                       <option>Any</option>
                       <option>>4</option>
                       <option>>3</option>
@@ -92,7 +84,7 @@
                 <label class="label">Language</label>
                 <div class="control">
                   <div class="select is-multiple">
-                    <select>
+                    <select name="language">
                       <option>Any</option>
                     </select>
                   </div>
@@ -103,7 +95,7 @@
                 <label class="label">Publication Year</label>
                 <div class="control">
                   <div class="select is-multiple">
-                    <select>
+                    <select name="year">
                       <option>Any</option>
                     </select>
                   </div>
