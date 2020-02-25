@@ -1,5 +1,3 @@
-# reading-list-recc
-
 # Running the svelte front-end:
 
 cd client
