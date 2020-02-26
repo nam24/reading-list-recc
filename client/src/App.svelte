@@ -29,7 +29,7 @@
 	<div class="hero-body">
 	  <div class="container">
 		<h1 class="title">
-		  test Listkjkjkj Recommendations
+		  Reading List Recommendations
 		</h1>
 		<h2 class="subtitle">
 		  Get customised book recommendations
