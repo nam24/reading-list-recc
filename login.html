@@ -2,7 +2,18 @@
     <head>
         <title>Login</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.8.0/css/bulma.css"/>
-
+        <style>
+            
+            .card-wrapper{
+					display: flex;
+	    justify-content: center;
+	    align-items: center;
+	    min-height: calc(100vh - 10rem);
+			}
+			.card-header-title{
+    font-size: 2rem
+			}
+        </style>
     </head>
     <body>
         <section class="hero is-link is-bold">
@@ -17,5 +28,47 @@
               </div>
             </div>
           </section>
+
+          <div  class="card-wrapper">
+			<div class="card" style="width:100%;max-width:500px;margin:auto;">
+				<div class="card-header">
+					<p class="card-header-title">
+						Login
+					</p>
+				</div>
+				<div class="card-content">
+					<form   method="post" enctype="multipart/form-data" autocomplete="off" onsubmit="return Verify()" name="myform">
+							<div class="field">
+								Username:
+								<p class="control has-icons-left has-icons-right">
+										<input class="input" type="text" placeholder="Enter your username here" name="username" required >
+										<span class="icon is-small is-left">
+												<i class="fas fa-envelope"></i>
+										</span>
+										<span class="icon is-small is-right">
+												<i class="fas fa-check"></i>
+										</span>
+								</p>
+						</div>
+						<div class="field">
+							Password:
+								<p class="control has-icons-left">
+										<input class="input" type="password" placeholder="Enter your password here" name="password" required>
+										<span class="icon is-small is-left">
+												<i class="fas fa-lock"></i>
+										</span>
+								</p>
+						</div>
+						<div class="field">
+								<p class="control" style="margin-top:1.5rem;">
+									<strong><input style="width:100%;" id="button" type="submit" value="Login" name="login" class="button is-success"/></strong>
+								</p>
+						</div>
+
+								</form>
+				</div>
+			</div>
+		</div>
+
     </body>
 </html>
