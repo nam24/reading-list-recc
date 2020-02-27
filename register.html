@@ -1,0 +1,71 @@
+<html>
+    <head>
+        <title>Login</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.8.0/css/bulma.css"/>
+        <style>
+            
+            .card-wrapper{
+					display: flex;
+	    justify-content: center;
+	    align-items: center;
+	    min-height: calc(100vh - 10rem);
+			}
+			.card-header-title{
+    font-size: 2rem
+			}
+        </style>
+    </head>
+    <body>
+        <section class="hero is-link is-bold">
+            <div class="hero-body">
+              <div class="container">
+                <h1 class="title">
+                  Reading List Recommendations
+                </h1>
+                <h2 class="subtitle">
+                  Get customised book recommendations
+                </h2>
+              </div>
+            </div>
+          </section>
+
+  		<div  class="card-wrapper">
+  			<div class="card" style="width:100%;max-width:500px;margin:auto;">
+  				<div class="card-header">
+  					<p class="card-header-title">
+  						Register
+  					</p>
+  				</div>
+  				<div class="card-content">
+  					<form   method="post" enctype="multipart/form-data" autocomplete="off" onsubmit="return Verify()" name="myform">
+  						<div class="field">
+                        Enter a username:
+  							<p class="control has-icons-left has-icons-right">
+  								<input class="input" type="text" placeholder="Enter username" name="username" required >
+  								<span class="icon is-small is-left">
+  									<i class="fas fa-envelope"></i>
+  								</span>
+  							</p>
+                        </div>
+                        <br />
+                        <div class="field">
+                         Enter Password:
+  							<p class="control has-icons-left">
+                                <input class="input" type="password" placeholder="Enter password" name="password" required>
+  			                    <span class="icon is-small is-left">
+                                    <i class="fas fa-lock"></i>
+                        		</span>
+  							</p>
+  						</div>
+  						<div class="field">
+  							<p class="control" style="margin-top:1.5rem;">
+  				    			<input style="width:100%;" id="button" type="submit" value="Register" name="Register" class="button is-success is-medium"/>
+  							</p>
+  						</div>
+  					</form>
+  				</div>
+  			</div>
+  		</div>
+
+    </body>
+</html>
