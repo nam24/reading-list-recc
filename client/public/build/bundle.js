@@ -382,6 +382,10 @@ var app = (function () {
         else
             dispatch_dev("SvelteDOMSetAttribute", { node, attribute, value });
     }
+    function prop_dev(node, property, value) {
+        node[property] = value;
+        dispatch_dev("SvelteDOMSetProperty", { node, property, value });
+    }
     function set_data_dev(text, data) {
         data = '' + data;
         if (text.data === data)
@@ -627,7 +631,7 @@ var app = (function () {
     		p: function update(ctx, dirty) {
     			const modal_changes = {};
 
-    			if (dirty & /*$$scope*/ 128) {
+    			if (dirty & /*$$scope, data*/ 129) {
     				modal_changes.$$scope = { dirty, ctx };
     			}
 
@@ -668,9 +672,9 @@ var app = (function () {
     			h2 = element("h2");
     			strong = element("strong");
     			strong.textContent = "Get your reading list recommendation";
-    			add_location(strong, file$1, 54, 3, 1116);
+    			add_location(strong, file$1, 54, 3, 1113);
     			attr_dev(h2, "slot", "header");
-    			add_location(h2, file$1, 53, 2, 1094);
+    			add_location(h2, file$1, 53, 2, 1091);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, h2, anchor);
@@ -692,85 +696,121 @@ var app = (function () {
     	return block;
     }
 
+    // (88:22) {#each data as item }
+    function create_each_block(ctx) {
+    	let option;
+    	let t_value = /*item*/ ctx[4].name + "";
+    	let t;
+    	let option_value_value;
+
+    	const block = {
+    		c: function create() {
+    			option = element("option");
+    			t = text(t_value);
+    			option.__value = option_value_value = /*item*/ ctx[4].name;
+    			option.value = option.__value;
+    			add_location(option, file$1, 88, 24, 2364);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, option, anchor);
+    			append_dev(option, t);
+    		},
+    		p: function update(ctx, dirty) {
+    			if (dirty & /*data*/ 1 && t_value !== (t_value = /*item*/ ctx[4].name + "")) set_data_dev(t, t_value);
+
+    			if (dirty & /*data*/ 1 && option_value_value !== (option_value_value = /*item*/ ctx[4].name)) {
+    				prop_dev(option, "__value", option_value_value);
+    			}
+
+    			option.value = option.__value;
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(option);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_each_block.name,
+    		type: "each",
+    		source: "(88:22) {#each data as item }",
+    		ctx
+    	});
+
+    	return block;
+    }
+
     // (53:1) <Modal on:close="{() => showModal = false}">
     function create_default_slot(ctx) {
     	let t0;
-    	let div16;
+    	let div14;
     	let form;
     	let div1;
     	let label0;
     	let t2;
     	let div0;
-    	let input0;
+    	let input;
     	let t3;
-    	let div3;
+    	let div4;
     	let label1;
     	let t5;
+    	let div3;
     	let div2;
-    	let input1;
-    	let t6;
-    	let div6;
-    	let label2;
-    	let t8;
-    	let div5;
-    	let div4;
     	let select0;
     	let option0;
     	let option1;
     	let option2;
     	let option3;
     	let option4;
+    	let t11;
+    	let div7;
+    	let label2;
+    	let t13;
+    	let div6;
+    	let div5;
+    	let select1;
     	let t14;
-    	let div9;
+    	let div10;
     	let label3;
     	let t16;
+    	let div9;
     	let div8;
-    	let div7;
-    	let select1;
+    	let select2;
     	let option5;
     	let t18;
-    	let div12;
-    	let label4;
-    	let t20;
-    	let div11;
-    	let div10;
-    	let select2;
-    	let option6;
-    	let t22;
     	let br;
-    	let t23;
-    	let div15;
+    	let t19;
     	let div13;
+    	let div11;
     	let button0;
-    	let t25;
-    	let div14;
+    	let t21;
+    	let div12;
     	let button1;
+    	let each_value = /*data*/ ctx[0];
+    	let each_blocks = [];
+
+    	for (let i = 0; i < each_value.length; i += 1) {
+    		each_blocks[i] = create_each_block(get_each_context(ctx, each_value, i));
+    	}
 
     	const block = {
     		c: function create() {
     			t0 = space();
-    			div16 = element("div");
+    			div14 = element("div");
     			form = element("form");
     			div1 = element("div");
     			label0 = element("label");
     			label0.textContent = "Tags";
     			t2 = space();
     			div0 = element("div");
-    			input0 = element("input");
+    			input = element("input");
     			t3 = space();
-    			div3 = element("div");
-    			label1 = element("label");
-    			label1.textContent = "Author Name";
-    			t5 = space();
-    			div2 = element("div");
-    			input1 = element("input");
-    			t6 = space();
-    			div6 = element("div");
-    			label2 = element("label");
-    			label2.textContent = "Rating";
-    			t8 = space();
-    			div5 = element("div");
     			div4 = element("div");
+    			label1 = element("label");
+    			label1.textContent = "Rating";
+    			t5 = space();
+    			div3 = element("div");
+    			div2 = element("div");
     			select0 = element("select");
     			option0 = element("option");
     			option0.textContent = "Any";
@@ -782,178 +822,196 @@ var app = (function () {
     			option3.textContent = ">2";
     			option4 = element("option");
     			option4.textContent = ">1";
-    			t14 = space();
-    			div9 = element("div");
-    			label3 = element("label");
-    			label3.textContent = "Language";
-    			t16 = space();
-    			div8 = element("div");
+    			t11 = space();
     			div7 = element("div");
+    			label2 = element("label");
+    			label2.textContent = "Language";
+    			t13 = space();
+    			div6 = element("div");
+    			div5 = element("div");
     			select1 = element("select");
+
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].c();
+    			}
+
+    			t14 = space();
+    			div10 = element("div");
+    			label3 = element("label");
+    			label3.textContent = "Publication Year";
+    			t16 = space();
+    			div9 = element("div");
+    			div8 = element("div");
+    			select2 = element("select");
     			option5 = element("option");
     			option5.textContent = "Any";
     			t18 = space();
-    			div12 = element("div");
-    			label4 = element("label");
-    			label4.textContent = "Publication Year";
-    			t20 = space();
-    			div11 = element("div");
-    			div10 = element("div");
-    			select2 = element("select");
-    			option6 = element("option");
-    			option6.textContent = "Any";
-    			t22 = space();
     			br = element("br");
-    			t23 = space();
-    			div15 = element("div");
+    			t19 = space();
     			div13 = element("div");
+    			div11 = element("div");
     			button0 = element("button");
     			button0.textContent = "Submit";
-    			t25 = space();
-    			div14 = element("div");
+    			t21 = space();
+    			div12 = element("div");
     			button1 = element("button");
     			button1.textContent = "Cancel";
     			attr_dev(label0, "class", "label");
-    			add_location(label0, file$1, 61, 16, 1295);
-    			attr_dev(input0, "class", "input");
-    			attr_dev(input0, "type", "text");
-    			attr_dev(input0, "placeholder", "Enter tag names for your search");
-    			add_location(input0, file$1, 63, 18, 1385);
+    			add_location(label0, file$1, 61, 16, 1306);
+    			attr_dev(input, "class", "input");
+    			attr_dev(input, "type", "text");
+    			attr_dev(input, "placeholder", "Enter tag names for your search");
+    			attr_dev(input, "id", "tags");
+    			attr_dev(input, "name", "tags");
+    			add_location(input, file$1, 63, 18, 1396);
     			attr_dev(div0, "class", "control");
-    			add_location(div0, file$1, 62, 16, 1345);
+    			add_location(div0, file$1, 62, 16, 1356);
     			attr_dev(div1, "class", "field");
-    			add_location(div1, file$1, 60, 12, 1259);
+    			add_location(div1, file$1, 60, 12, 1270);
     			attr_dev(label1, "class", "label");
-    			add_location(label1, file$1, 68, 16, 1574);
-    			attr_dev(input1, "class", "input");
-    			attr_dev(input1, "type", "text");
-    			attr_dev(input1, "placeholder", "Enter name of author");
-    			add_location(input1, file$1, 70, 18, 1671);
-    			attr_dev(div2, "class", "control");
-    			add_location(div2, file$1, 69, 16, 1631);
-    			attr_dev(div3, "class", "field");
-    			add_location(div3, file$1, 67, 14, 1538);
-    			attr_dev(label2, "class", "label");
-    			add_location(label2, file$1, 76, 16, 1864);
+    			add_location(label1, file$1, 68, 16, 1607);
     			option0.__value = "Any";
     			option0.value = option0.__value;
-    			add_location(option0, file$1, 80, 22, 2028);
+    			add_location(option0, file$1, 72, 22, 1785);
     			option1.__value = ">4";
     			option1.value = option1.__value;
-    			add_location(option1, file$1, 81, 22, 2071);
+    			add_location(option1, file$1, 73, 22, 1828);
     			option2.__value = ">3";
     			option2.value = option2.__value;
-    			add_location(option2, file$1, 82, 22, 2113);
+    			add_location(option2, file$1, 74, 22, 1870);
     			option3.__value = ">2";
     			option3.value = option3.__value;
-    			add_location(option3, file$1, 83, 22, 2155);
+    			add_location(option3, file$1, 75, 22, 1912);
     			option4.__value = ">1";
     			option4.value = option4.__value;
-    			add_location(option4, file$1, 84, 22, 2197);
-    			add_location(select0, file$1, 79, 20, 1997);
-    			attr_dev(div4, "class", "select");
-    			add_location(div4, file$1, 78, 18, 1956);
-    			attr_dev(div5, "class", "control");
-    			add_location(div5, file$1, 77, 16, 1916);
-    			attr_dev(div6, "class", "field");
-    			add_location(div6, file$1, 75, 14, 1828);
+    			add_location(option4, file$1, 76, 22, 1954);
+    			attr_dev(select0, "name", "rating");
+    			add_location(select0, file$1, 71, 20, 1740);
+    			attr_dev(div2, "class", "select");
+    			add_location(div2, file$1, 70, 18, 1699);
+    			attr_dev(div3, "class", "control");
+    			add_location(div3, file$1, 69, 16, 1659);
+    			attr_dev(div4, "class", "field");
+    			add_location(div4, file$1, 67, 14, 1571);
+    			attr_dev(label2, "class", "label");
+    			add_location(label2, file$1, 83, 16, 2124);
+    			attr_dev(select1, "name", "language");
+    			add_location(select1, file$1, 86, 20, 2271);
+    			attr_dev(div5, "class", "select is-multiple");
+    			add_location(div5, file$1, 85, 18, 2218);
+    			attr_dev(div6, "class", "control");
+    			add_location(div6, file$1, 84, 16, 2178);
+    			attr_dev(div7, "class", "field");
+    			add_location(div7, file$1, 82, 14, 2088);
     			attr_dev(label3, "class", "label");
-    			add_location(label3, file$1, 91, 16, 2367);
+    			add_location(label3, file$1, 96, 16, 2573);
     			option5.__value = "Any";
     			option5.value = option5.__value;
-    			add_location(option5, file$1, 95, 22, 2545);
-    			add_location(select1, file$1, 94, 20, 2514);
-    			attr_dev(div7, "class", "select is-multiple");
-    			add_location(div7, file$1, 93, 18, 2461);
-    			attr_dev(div8, "class", "control");
-    			add_location(div8, file$1, 92, 16, 2421);
-    			attr_dev(div9, "class", "field");
-    			add_location(div9, file$1, 90, 14, 2331);
-    			attr_dev(label4, "class", "label");
-    			add_location(label4, file$1, 102, 16, 2716);
-    			option6.__value = "Any";
-    			option6.value = option6.__value;
-    			add_location(option6, file$1, 106, 22, 2902);
-    			add_location(select2, file$1, 105, 20, 2871);
-    			attr_dev(div10, "class", "select is-multiple");
-    			add_location(div10, file$1, 104, 18, 2818);
-    			attr_dev(div11, "class", "control");
-    			add_location(div11, file$1, 103, 16, 2778);
-    			attr_dev(div12, "class", "field");
-    			add_location(div12, file$1, 101, 14, 2680);
-    			add_location(br, file$1, 111, 14, 3036);
+    			add_location(option5, file$1, 100, 22, 2771);
+    			attr_dev(select2, "name", "year");
+    			add_location(select2, file$1, 99, 20, 2728);
+    			attr_dev(div8, "class", "select is-multiple");
+    			add_location(div8, file$1, 98, 18, 2675);
+    			attr_dev(div9, "class", "control");
+    			add_location(div9, file$1, 97, 16, 2635);
+    			attr_dev(div10, "class", "field");
+    			add_location(div10, file$1, 95, 14, 2537);
+    			add_location(br, file$1, 105, 14, 2905);
     			attr_dev(button0, "class", "button is-link");
-    			add_location(button0, file$1, 115, 18, 3157);
-    			attr_dev(div13, "class", "control");
-    			add_location(div13, file$1, 114, 16, 3117);
+    			add_location(button0, file$1, 109, 18, 3026);
+    			attr_dev(div11, "class", "control");
+    			add_location(div11, file$1, 108, 16, 2986);
     			attr_dev(button1, "class", "button is-link is-light");
-    			add_location(button1, file$1, 118, 18, 3283);
-    			attr_dev(div14, "class", "control");
-    			add_location(div14, file$1, 117, 16, 3243);
-    			attr_dev(div15, "class", "field is-grouped");
-    			add_location(div15, file$1, 113, 14, 3070);
+    			add_location(button1, file$1, 112, 18, 3152);
+    			attr_dev(div12, "class", "control");
+    			add_location(div12, file$1, 111, 16, 3112);
+    			attr_dev(div13, "class", "field is-grouped");
+    			add_location(div13, file$1, 107, 14, 2939);
     			attr_dev(form, "action", "");
-    			add_location(form, file$1, 59, 11, 1230);
-    			attr_dev(div16, "class", "content svelte-1cv1yew");
-    			add_location(div16, file$1, 58, 8, 1197);
+    			attr_dev(form, "method", "POST");
+    			add_location(form, file$1, 59, 11, 1227);
+    			attr_dev(div14, "class", "content svelte-1cv1yew");
+    			add_location(div14, file$1, 58, 8, 1194);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, t0, anchor);
-    			insert_dev(target, div16, anchor);
-    			append_dev(div16, form);
+    			insert_dev(target, div14, anchor);
+    			append_dev(div14, form);
     			append_dev(form, div1);
     			append_dev(div1, label0);
     			append_dev(div1, t2);
     			append_dev(div1, div0);
-    			append_dev(div0, input0);
+    			append_dev(div0, input);
     			append_dev(form, t3);
-    			append_dev(form, div3);
-    			append_dev(div3, label1);
-    			append_dev(div3, t5);
+    			append_dev(form, div4);
+    			append_dev(div4, label1);
+    			append_dev(div4, t5);
+    			append_dev(div4, div3);
     			append_dev(div3, div2);
-    			append_dev(div2, input1);
-    			append_dev(form, t6);
-    			append_dev(form, div6);
-    			append_dev(div6, label2);
-    			append_dev(div6, t8);
-    			append_dev(div6, div5);
-    			append_dev(div5, div4);
-    			append_dev(div4, select0);
+    			append_dev(div2, select0);
     			append_dev(select0, option0);
     			append_dev(select0, option1);
     			append_dev(select0, option2);
     			append_dev(select0, option3);
     			append_dev(select0, option4);
+    			append_dev(form, t11);
+    			append_dev(form, div7);
+    			append_dev(div7, label2);
+    			append_dev(div7, t13);
+    			append_dev(div7, div6);
+    			append_dev(div6, div5);
+    			append_dev(div5, select1);
+
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].m(select1, null);
+    			}
+
     			append_dev(form, t14);
-    			append_dev(form, div9);
-    			append_dev(div9, label3);
-    			append_dev(div9, t16);
+    			append_dev(form, div10);
+    			append_dev(div10, label3);
+    			append_dev(div10, t16);
+    			append_dev(div10, div9);
     			append_dev(div9, div8);
-    			append_dev(div8, div7);
-    			append_dev(div7, select1);
-    			append_dev(select1, option5);
+    			append_dev(div8, select2);
+    			append_dev(select2, option5);
     			append_dev(form, t18);
-    			append_dev(form, div12);
-    			append_dev(div12, label4);
-    			append_dev(div12, t20);
-    			append_dev(div12, div11);
-    			append_dev(div11, div10);
-    			append_dev(div10, select2);
-    			append_dev(select2, option6);
-    			append_dev(form, t22);
     			append_dev(form, br);
-    			append_dev(form, t23);
-    			append_dev(form, div15);
-    			append_dev(div15, div13);
-    			append_dev(div13, button0);
-    			append_dev(div15, t25);
-    			append_dev(div15, div14);
-    			append_dev(div14, button1);
+    			append_dev(form, t19);
+    			append_dev(form, div13);
+    			append_dev(div13, div11);
+    			append_dev(div11, button0);
+    			append_dev(div13, t21);
+    			append_dev(div13, div12);
+    			append_dev(div12, button1);
     		},
-    		p: noop,
+    		p: function update(ctx, dirty) {
+    			if (dirty & /*data*/ 1) {
+    				each_value = /*data*/ ctx[0];
+    				let i;
+
+    				for (i = 0; i < each_value.length; i += 1) {
+    					const child_ctx = get_each_context(ctx, each_value, i);
+
+    					if (each_blocks[i]) {
+    						each_blocks[i].p(child_ctx, dirty);
+    					} else {
+    						each_blocks[i] = create_each_block(child_ctx);
+    						each_blocks[i].c();
+    						each_blocks[i].m(select1, null);
+    					}
+    				}
+
+    				for (; i < each_blocks.length; i += 1) {
+    					each_blocks[i].d(1);
+    				}
+
+    				each_blocks.length = each_value.length;
+    			}
+    		},
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(t0);
-    			if (detaching) detach_dev(div16);
+    			if (detaching) detach_dev(div14);
+    			destroy_each(each_blocks, detaching);
     		}
     	};
 
@@ -962,60 +1020,6 @@ var app = (function () {
     		id: create_default_slot.name,
     		type: "slot",
     		source: "(53:1) <Modal on:close=\\\"{() => showModal = false}\\\">",
-    		ctx
-    	});
-
-    	return block;
-    }
-
-    // (126:0) {#each data as item }
-    function create_each_block(ctx) {
-    	let div;
-    	let p0;
-    	let t0_value = /*item*/ ctx[4].name + "";
-    	let t0;
-    	let t1;
-    	let p1;
-    	let t2_value = /*item*/ ctx[4].college_id + "";
-    	let t2;
-    	let t3;
-
-    	const block = {
-    		c: function create() {
-    			div = element("div");
-    			p0 = element("p");
-    			t0 = text(t0_value);
-    			t1 = space();
-    			p1 = element("p");
-    			t2 = text(t2_value);
-    			t3 = space();
-    			add_location(p0, file$1, 127, 3, 3468);
-    			add_location(p1, file$1, 128, 3, 3492);
-    			add_location(div, file$1, 126, 2, 3459);
-    		},
-    		m: function mount(target, anchor) {
-    			insert_dev(target, div, anchor);
-    			append_dev(div, p0);
-    			append_dev(p0, t0);
-    			append_dev(div, t1);
-    			append_dev(div, p1);
-    			append_dev(p1, t2);
-    			append_dev(div, t3);
-    		},
-    		p: function update(ctx, dirty) {
-    			if (dirty & /*data*/ 1 && t0_value !== (t0_value = /*item*/ ctx[4].name + "")) set_data_dev(t0, t0_value);
-    			if (dirty & /*data*/ 1 && t2_value !== (t2_value = /*item*/ ctx[4].college_id + "")) set_data_dev(t2, t2_value);
-    		},
-    		d: function destroy(detaching) {
-    			if (detaching) detach_dev(div);
-    		}
-    	};
-
-    	dispatch_dev("SvelteRegisterBlock", {
-    		block,
-    		id: create_each_block.name,
-    		type: "each",
-    		source: "(126:0) {#each data as item }",
     		ctx
     	});
 
@@ -1039,17 +1043,10 @@ var app = (function () {
     	let div3;
     	let button1;
     	let t8;
-    	let t9;
-    	let each_1_anchor;
+    	let if_block_anchor;
     	let current;
     	let dispose;
     	let if_block = /*showModal*/ ctx[1] && create_if_block(ctx);
-    	let each_value = /*data*/ ctx[0];
-    	let each_blocks = [];
-
-    	for (let i = 0; i < each_value.length; i += 1) {
-    		each_blocks[i] = create_each_block(get_each_context(ctx, each_value, i));
-    	}
 
     	const block = {
     		c: function create() {
@@ -1057,7 +1054,7 @@ var app = (function () {
     			div1 = element("div");
     			div0 = element("div");
     			h1 = element("h1");
-    			h1.textContent = "test Listkjkjkj Recommendations";
+    			h1.textContent = "Reading List Recommendations";
     			t1 = space();
     			h2 = element("h2");
     			h2.textContent = "Get customised book recommendations";
@@ -1074,17 +1071,11 @@ var app = (function () {
     			button1.textContent = "Get Information";
     			t8 = space();
     			if (if_block) if_block.c();
-    			t9 = space();
-
-    			for (let i = 0; i < each_blocks.length; i += 1) {
-    				each_blocks[i].c();
-    			}
-
-    			each_1_anchor = empty();
+    			if_block_anchor = empty();
     			attr_dev(h1, "class", "title");
     			add_location(h1, file$1, 30, 2, 566);
     			attr_dev(h2, "class", "subtitle");
-    			add_location(h2, file$1, 33, 2, 631);
+    			add_location(h2, file$1, 33, 2, 628);
     			attr_dev(div0, "class", "container");
     			add_location(div0, file$1, 29, 3, 540);
     			attr_dev(div1, "class", "hero-body");
@@ -1092,16 +1083,16 @@ var app = (function () {
     			attr_dev(section, "class", "hero is-link is-bold");
     			add_location(section, file$1, 27, 0, 473);
     			attr_dev(button0, "class", "button is-hovered is-link is-light");
-    			add_location(button0, file$1, 43, 2, 781);
+    			add_location(button0, file$1, 43, 2, 778);
     			attr_dev(div2, "class", "options svelte-1cv1yew");
-    			add_location(div2, file$1, 42, 1, 757);
-    			add_location(br, file$1, 45, 1, 906);
+    			add_location(div2, file$1, 42, 1, 754);
+    			add_location(br, file$1, 45, 1, 903);
     			attr_dev(button1, "class", "button is-hovered is-link is-light");
-    			add_location(button1, file$1, 47, 2, 936);
+    			add_location(button1, file$1, 47, 2, 933);
     			attr_dev(div3, "class", "options svelte-1cv1yew");
-    			add_location(div3, file$1, 46, 1, 912);
+    			add_location(div3, file$1, 46, 1, 909);
     			attr_dev(div4, "class", "content svelte-1cv1yew");
-    			add_location(div4, file$1, 41, 0, 734);
+    			add_location(div4, file$1, 41, 0, 731);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -1124,13 +1115,7 @@ var app = (function () {
     			append_dev(div3, button1);
     			insert_dev(target, t8, anchor);
     			if (if_block) if_block.m(target, anchor);
-    			insert_dev(target, t9, anchor);
-
-    			for (let i = 0; i < each_blocks.length; i += 1) {
-    				each_blocks[i].m(target, anchor);
-    			}
-
-    			insert_dev(target, each_1_anchor, anchor);
+    			insert_dev(target, if_block_anchor, anchor);
     			current = true;
     			dispose = listen_dev(button0, "click", /*click_handler*/ ctx[2], false, false, false);
     		},
@@ -1143,7 +1128,7 @@ var app = (function () {
     					if_block = create_if_block(ctx);
     					if_block.c();
     					transition_in(if_block, 1);
-    					if_block.m(t9.parentNode, t9);
+    					if_block.m(if_block_anchor.parentNode, if_block_anchor);
     				}
     			} else if (if_block) {
     				group_outros();
@@ -1153,29 +1138,6 @@ var app = (function () {
     				});
 
     				check_outros();
-    			}
-
-    			if (dirty & /*data*/ 1) {
-    				each_value = /*data*/ ctx[0];
-    				let i;
-
-    				for (i = 0; i < each_value.length; i += 1) {
-    					const child_ctx = get_each_context(ctx, each_value, i);
-
-    					if (each_blocks[i]) {
-    						each_blocks[i].p(child_ctx, dirty);
-    					} else {
-    						each_blocks[i] = create_each_block(child_ctx);
-    						each_blocks[i].c();
-    						each_blocks[i].m(each_1_anchor.parentNode, each_1_anchor);
-    					}
-    				}
-
-    				for (; i < each_blocks.length; i += 1) {
-    					each_blocks[i].d(1);
-    				}
-
-    				each_blocks.length = each_value.length;
     			}
     		},
     		i: function intro(local) {
@@ -1193,9 +1155,7 @@ var app = (function () {
     			if (detaching) detach_dev(div4);
     			if (detaching) detach_dev(t8);
     			if (if_block) if_block.d(detaching);
-    			if (detaching) detach_dev(t9);
-    			destroy_each(each_blocks, detaching);
-    			if (detaching) detach_dev(each_1_anchor);
+    			if (detaching) detach_dev(if_block_anchor);
     			dispose();
     		}
     	};
