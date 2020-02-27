@@ -14,7 +14,7 @@ def hello():
 def reco():
     conn = psycopg2.connect(database="postgres", user="postgres", password="123post", host="127.0.0.1", port="5432")
     cur = conn.cursor()
-    cur.execute('''select distinct language_code from books''')
+    cur.execute('''select a.language_code from (select language_code, count(*) from books ) a order by a.count desc''')
     a = []
     row = cur.fetchone()
     while row is not None:
@@ -32,7 +32,7 @@ def display():
         #print(tag_name, author_name, rating, lang)
         conn = psycopg2.connect(database="postgres", user="postgres", password="123post", host="127.0.0.1", port="5432")
         cur = conn.cursor()
-        cur.execute('''select distinct language_code from books''')
+        cur.execute('''select a.language_code from (select language_code, count(*) from books ) a order by a.count desc''')
         a = []
         row = cur.fetchone()
         while row is not None:
@@ -105,7 +105,7 @@ def login():
 @app.route('/user_page', methods=['GET', 'POST'])
 def user_page():
     user = request.form['username']
-    passw = request.form['password']
+    #passw = request.form['password']
     conn = psycopg2.connect(database="postgres", user="postgres", password="123post", host="127.0.0.1", port="5432")
     cur = conn.cursor()
 
@@ -115,6 +115,7 @@ from ratings
 union all (select distinct user_id from to_read)) a) b where b.user_id = '{0}' '''.format(user))
     item = cur.fetchall()
     if item:
+
         return render_template('user_page.html')
     else:
         return render_template('login.html', message = "USER DOES NOT EXISTS")
