@@ -1,1 +1,84 @@
-<html></html>
+<!--This is the information display for a book in the recommended list -->
+<html>
+    <head>
+        <title>Get Information</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.8.0/css/bulma.css"/>
+        <style>
+            .card-wrapper {
+				display: flex;
+		    	justify-content: center;
+			    align-items: center;
+			    min-height: calc(100vh - 30rem);
+				}
+			.card-header-title {
+				font-size: 2rem
+				}
+        </style>
+    </head>
+    <body>
+        <nav class="navbar is-transparent" role="navigation" aria-label="main navigation">
+            <div id="navbarBasicExample" class="navbar-menu">
+              <div class="navbar-start">
+                <a class="navbar-item">
+                  Home
+                </a>
+          
+                <a class="navbar-item">
+                  Documentation
+                </a>
+              </div>
+          
+              <div class="navbar-end">
+                <div class="navbar-item">
+                  <div class="buttons">
+                    <a class="navbar-item">
+                      <strong>Sign up</strong>
+                    </a>
+                    <a class="navbar-item">
+                      Log in
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </nav>
+          <section class="hero is-link is-bold">
+            <div class="hero-body">
+              <div class="container">
+                <h1 class="title">
+                  Reading List Recommendations
+                </h1>
+                <h2 class="subtitle">
+                  Get customised book recommendations
+                </h2>
+              </div>
+            </div>
+          </section>
+          
+          <div  class="card-wrapper">
+			<div class="card" style="width:100%;max-width:40vw;margin:auto;">
+				<div class="card-header">
+					<p class="card-header-title">
+                        Title of Book 
+					</p>
+				</div>
+				<div class="card-content">
+                    <p class="subtitle">by Author</p>
+
+                    <div class="columns">
+                        <div class="column is-three-quarters">
+                            <progress class="progress is-link" value="80" max="100"></progress>
+                        </div>
+                        <div class="column">Rating</div>
+                    </div>
+                    <p>
+                        <strong>Published in</strong>
+                    </p>
+				</div>
+			</div>
+		</div>
+
+        <!--Rating-->
+
+    </body>
+</html>
