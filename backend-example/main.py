@@ -11,9 +11,6 @@ db.create_db()
 # Put some dummy results
 items = [
     ('mt5090503', 'Anunay Arunav Pandey', 'MT'),
-    ('123232323', '3232323', '3232')
-    ('123232323', '3234323', '3232')
-    ('123232323', '34444323', '3232')
 ]
 for item in items:
     db.insert_student(item)
