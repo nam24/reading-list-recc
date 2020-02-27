@@ -85,7 +85,9 @@
                 <div class="control">
                   <div class="select is-multiple">
                     <select name="language">
-                      <option>Any</option>
+                      {#each data as item }
+                        <option>{item.name}</option>
+                      {/each}
                     </select>
                   </div>
                 </div>
@@ -115,11 +117,6 @@
           </div>
 	</Modal>
 {/if}
-{#each data as item }
-		<div>
-			<p> {item.name} </p>
-			<p> {item.college_id} </p>
-		</div>
-	{/each}
+
 
 
