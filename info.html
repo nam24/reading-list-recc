@@ -1,14 +1,13 @@
 <!--This is the information display for a book in the recommended list -->
 <html>
     <head>
-        <title>Get Information</title>
+        <title>Book Information</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.8.0/css/bulma.css"/>
         <style>
             .card-wrapper {
 				display: flex;
 		    	justify-content: center;
 			    align-items: center;
-			    min-height: calc(100vh - 15rem);
 				}
 			.card-header-title {
 				font-size: 2rem
@@ -22,7 +21,6 @@
                 <a class="navbar-item">
                   Home
                 </a>
-          
                 <a class="navbar-item">
                   Documentation
                 </a>
@@ -46,48 +44,42 @@
             <div class="hero-body">
               <div class="container">
                 <h1 class="title">
-                  Reading List Recommendations
+                  Name of the book
                 </h1>
                 <h2 class="subtitle">
-                  Get customised book recommendations
+                  by Author
                 </h2>
               </div>
             </div>
           </section>
           
           <div  class="card-wrapper">
-			<div class="card" style="width:100%;max-width:40vw;margin:auto;">
-				<div class="card-header">
-					<p class="card-header-title">
-                        Title of Book 
-					</p>
-				</div>
-				<div class="card-content">
-                    <p class="subtitle">by Author</p>
+	      		<div class="card" style="width:100%;max-width:80vw;margin:auto;">
+		      		<div class="card-content">
+                <div class="columns">
+                  <div class="column ">
                     <div class="columns">
-                        <div class="column is-two-thirds">
-                            <progress class="progress is-link" value="80" max="100"></progress>
-                        </div>
-                        <div class="column">Rating by 'no.' users</div>
+                      <div class="column is-two-thirds">
+                        <progress class="progress is-link" value="80" max="100"></progress>
+                      </div>
+                      <div class="column">Rating by 'no.' users</div>
                     </div>
-                    <p>Published in</p>
-                    <br>
-                    <p>'no.' people want to read this</p>
-                    <br>
-                    <div class="columns">
+                      <p>Published in</p><br>
+                      <p>'no.' people want to read this</p><br>
+                      <div class="columns">
                         <div class="column"></div>
                         <div class="column">
-                            <figure class="image">
-                                <img src="https://bulma.io/images/placeholders/128x128.png">
-                            </figure>
+                          <figure class="image">
+                            <img src="https://bulma.io/images/placeholders/128x128.png">
+                          </figure>
                         </div>
                         <div class="column"></div>
-                    </div>
-				</div>
-			</div>
-		</div>
-
-        <!--Rating-->
-
+                      </div>
+                  </div>
+                  <div class="column">Description</div>
+                </div>
+				      </div>
+			      </div>
+		      </div>
     </body>
 </html>
