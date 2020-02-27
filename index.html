@@ -4,9 +4,6 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.8.0/css/bulma.css"/>
 
         <style>
-            body {
-                
-            }
             .button {
                 height: 18vh;
                 width: 35vw;
@@ -14,7 +11,7 @@
                 font-size: 5vh;
             }
             .content {
-                margin-top: 5vh;.
+                margin-top: 5vh;
                 margin: 5vh 5vw 5vh 5vw;
             }
             .options {
@@ -41,7 +38,7 @@
                     <a class="navbar-item">
                       <strong>Sign up</strong>
                     </a>
-                    <a class="navbar-item">
+                    <a class="navbar-item" href = "{{url_for('login')}}">
                       Log in
                     </a>
                   </div>
@@ -65,15 +62,15 @@
         
         <div class="content">
             <div class="options">
-                <a class="button is-hovered is-link is-light " href="reco.html">Book Recommendations</a>
+                <a class="button is-hovered is-link is-light " href="{{ url_for('reco') }}">Book Recommendations</a>
             </div>
             
             <div class="options">
-                <button class="button is-hovered is-link is-light"  href="info.html>Get Information</button>
+                <a class="button is-hovered is-link is-light"  href="{{ url_for('reco') }}">Get Information</a>
             </div>
 
             <div class="options">
-                <a class="button is-hovered is-link is-light " href="add.html">Add a Book</a>
+                <a class="button is-hovered is-link is-light " href="{{ url_for('reco') }}">Add a Book</a>
             </div>
           </div>
         
