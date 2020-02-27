@@ -55,12 +55,29 @@
         
         <div class="content">
             <div class="tabs is-centered">
-                <ul>
-                  <li><a>Popularity</a></li>
-                  <li><a>Rating</a></li>
-                  <li><a>Publication Year</a></li>
+                <ul id = "sorting_parameter">
+                  <li value = "rating_count"><a href = "{{url_for('display')}}">Popularity</a></li>
+                  <li value = "ratings"><a href = "{{url_for('display')}}">Rating</a></li>
+                  <li value = "latest_year"><a href = "{{url_for('display')}}">Publication Year</a></li>
                 </ul>
               </div>
+
+              <table>
+                <tr>
+                  <th>Title</th>
+                  <th>Rating</th>
+                  <th>Author</th>
+                </tr>
+                {% if message %}
+                {% for i in message %}
+                <tr>
+                  <td>{{i[0]}}</td>
+                  <td>{{i[1]}}</td>
+                  <td>{{i[2]}}</td>
+                </tr>
+                {% endfor %}
+                {% endif %}
+              </table>
         </div>
         
     </body>
