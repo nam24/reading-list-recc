@@ -1,83 +1,91 @@
 <html>
-    <head>
-        <Title>Home</Title>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.8.0/css/bulma.css"/>
+  <head>
+    <title>Home</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.8.0/css/bulma.css"
+    />
 
-        <style>
-           
-            .button {
-                height: 18vh;
-                width: 35vw;
-                margin: 2vh;
-                font-size: 5vh;
-            }
-        </style>
-    </head>
-    <body>
-        <nav class="navbar is-transparent" role="navigation" aria-label="main navigation">
-            <div id="navbarBasicExample" class="navbar-menu">
-              <div class="navbar-start">
-                <a class="navbar-item">
-                  Home
-                </a>
-          
-                <a class="navbar-item">
-                  Documentation
-                </a>
-              </div>
-          
-              <div class="navbar-end">
-                <div class="navbar-item">
-                  <div class="buttons">
-                    <a class="navbar-item">
-                      <strong>Sign up</strong>
-                    </a>
-                    <a class="navbar-item">
-                      Log in
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </nav>
-        <section class="hero is-link is-bold">
-            <div class="hero-body">
-              <div class="container">
-                <h1 class="title">
-                  Reading List Recommendations
-                </h1>
-                <h2 class="subtitle">
-                  Get customised book recommendations
-                </h2>
-              </div>
-            </div>
-          </section>
-        
-        <div class="content">
-            <div class="tabs is-centered">
-                <ul>
-                  <li><a>Popularity</a></li>
-                  <li><a>Rating</a></li>
-                  <li><a>Publication Year</a></li>
-                </ul>
-              </div>
+    <style>
+      .button {
+        height: 18vh;
+        width: 35vw;
+        margin: 2vh;
+        font-size: 5vh;
+      }
+    </style>
+  </head>
+  <body>
+    <nav
+      class="navbar is-transparent"
+      role="navigation"
+      aria-label="main navigation"
+    >
+      <div id="navbarBasicExample" class="navbar-menu">
+        <div class="navbar-start">
+          <a class="navbar-item">
+            Home
+          </a>
 
-              <table>
-                <tr>
-                  <th>Title</th>
-                  <th>Rating</th>
-                  <th>Author</th>
-                </tr>
-                <tr>
-                  <a href="">
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </a>
-                  
-                </tr>
-              </table>
+          <a class="navbar-item">
+            Documentation
+          </a>
         </div>
-        
-    </body>
+
+        <div class="navbar-end">
+          <div class="navbar-item">
+            <div class="buttons">
+              <a class="navbar-item" href = "{{url_for('register')}}">
+                <strong>Sign up</strong>
+              </a>
+              <a class="navbar-item" href="{{url_for('login')}}">
+                Log in
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <section class="hero is-link is-bold">
+      <div class="hero-body">
+        <div class="container">
+          <h1 class="title">
+            Reading List Recommendations
+          </h1>
+          <h2 class="subtitle">
+            Get customised book recommendations
+          </h2>
+        </div>
+      </div>
+    </section>
+
+    <div class="content">
+      <div class="tabs is-centered">
+        <ul name="sorting_parameter">
+          <li value="rating_count">
+            <a href="{{url_for('sort', value = 'Popularity')}}">Popularity</a>
+          </li>
+          <li value="ratings"><a href="{{url_for('sort', value = 'Rating')}}">Rating</a></li>
+          <li value="latest_year">
+            <a href="{{url_for('sort', value = 'Publication')}}">Publication Year</a>
+          </li>
+        </ul>
+      </div>
+
+      <table>
+        <tr>
+          <th>Title</th>
+          <th>Rating</th>
+          <th>Author</th>
+        </tr>
+        {% if message %} {% for i in message %}
+        <tr>
+          <td><a href="{{url_for('info', value = i[3])}}">{{i[0]}}</a></td>
+          <td>{{i[1]}}</td>
+          <td>{{i[2]}}</td>
+        </tr>
+        {% endfor %} {% endif %}
+      </table>
+    </div>
+  </body>
 </html>

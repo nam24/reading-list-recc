@@ -1,0 +1,75 @@
+<html>
+    <head>
+        <Title>Home</Title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.8.0/css/bulma.css"/>
+
+        <style>
+            body {
+                height: 100%;
+                max-width: 100%;
+            }
+            .content {
+                margin-top: 5vh;
+                margin-left: 10vw;
+                margin-right: 50vh;
+            }
+            select {
+                width: 50vh;
+            }
+            .input {
+                width: 60vh;
+            }
+            .button {
+                width: 10vw;
+                height: 5vh;
+            }
+.divScroll {
+overflow:scroll;
+height:100px;
+width:200px;
+}    
+        </style>
+    </head>
+    <body>
+        <nav class="navbar is-transparent" role="navigation" aria-label="main navigation">
+            <div id="navbarBasicExample" class="navbar-menu">
+              <div class="navbar-start">
+                <a class="navbar-item">
+                  Home
+                </a>
+          
+                <a class="navbar-item">
+                  Documentation
+                </a>
+              </div>
+        </div>
+        </nav>
+        <table class = "divScroll">
+            {% if leader %}
+            {% for i in leader %}
+            <tr>
+                <td> {{i}}</td>
+            </tr>
+            {% endfor %}
+            {% endif %}
+        </table>
+        <table class = "divScroll">
+            {% if desire %}
+            {% for i in desire %}
+            <tr>
+                <td><a href = "{{url_for('info', value = i[0])}}"> {{i[1]}}</a></td>
+            </tr>
+            {% endfor %}
+            {% endif %}
+        </table>
+        <table class = "divScroll">
+            {% if read %}
+            {% for i in read %}
+            <tr>
+                <td><a href = "{{url_for('info', value = i[0])}}"> {{i[1]}}</a></td>
+            </tr>
+            {% endfor %}
+            {% endif %}
+        </table>
+    </body>
+</html>
