@@ -1,1 +1,72 @@
-<html></html>
+<!--This is the information display for a book in the recommended list -->
+<html>
+    <head>
+        <title>Book Information</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.8.0/css/bulma.css"/>
+        <style>
+            .card-wrapper {
+				display: flex;
+		    	justify-content: center;
+			    align-items: center;
+				}
+			.card-header-title {
+				font-size: 2rem
+				}
+        </style>
+    </head>
+    <body>
+        <nav class="navbar is-transparent" role="navigation" aria-label="main navigation">
+            <div id="navbarBasicExample" class="navbar-menu">
+              <div class="navbar-start">
+                <a class="navbar-item">
+                  Home
+                </a>
+                <a class="navbar-item">
+                  Documentation
+                </a>
+              </div>
+            </div>
+          </nav>
+          <section class="hero is-link is-bold">
+            <div class="hero-body">
+              <div class="container">
+                <h1 class="title">
+                  {{ans[0]}}
+                </h1>
+                <h2 class="subtitle">
+                  by {{ans[1]}}
+                </h2>
+              </div>
+            </div>
+          </section>
+          
+          <div  class="card-wrapper">
+	      		<div class="card" style="width:100%;max-width:80vw;margin:auto;">
+		      		<div class="card-content">
+                <div class="columns">
+                  <div class="column ">
+                    <div class="columns">
+                      <div class="column is-two-thirds">
+                        <progress class="progress is-link" value="{{ans[6]}}" max="5"></progress>
+                      </div>
+                      <div class="column">Rating by {{ans[2]}} users</div>
+                    </div>
+                      <p>Published in {{ans[3]}}</p><br>
+                      <p>{{ans[4]}} people want to read this</p><br>
+                      <div class="columns">
+                        <div class="column"></div>
+                        <div class="column">
+                          <figure class="image">
+                            <img src="{{ans[5]}}">
+                          </figure>
+                        </div>
+                        <div class="column"></div>
+                      </div>
+                  </div>
+                  <div class="column">Description</div>
+                </div>
+				      </div>
+			      </div>
+		      </div>
+    </body>
+</html>
