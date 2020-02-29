@@ -6,6 +6,25 @@ app = Flask(__name__)
 conn = psycopg2.connect(database="postgres", user="postgres",
                         password="123post", host="127.0.0.1", port="5432")
 cur = conn.cursor()
+cur.execute('''create materialized view if not exists leaderboard as select ROW_NUMBER() OVER(ORDER BY (SELECT 1)) as sno, user_id, count as score
+        from (select user_id, count(*)
+        from ratings 
+        group by user_id
+        order by count desc) a''')
+cur.execute('''create materialized view if not exists average_rate as
+select id, (ratings_1*1 + ratings_2*2+ratings_3*3+ratings_4*4+ratings_5*5)*1.0/(ratings_1+ ratings_2+ratings_3+ratings_4+ratings_5)
+from books''')
+cur.execute('''create index if not exists book on books (title); create index if not exists tag on tags (tag_name)''')
+cur.execute('''ALTER TABLE books ALTER COLUMN ratings_count SET DEFAULT 1; ''')
+cur.execute('''alter table books drop constraint if exists books_pkey;
+alter table books add primary key(id); alter table users drop constraint if exists users_pkey;
+alter table users add primary key(userid); alter table tags drop constraint if exists tags_pkey;
+alter table tags add primary key(tag_id)''')
+cur.execute('''select max(id) from books''')
+val = cur.fetchone()
+#print(val[0])
+cur.execute('''CREATE SEQUENCE if not exists books_id_seq start with {0};
+ALTER TABLE books ALTER COLUMN id SET DEFAULT nextval('books_id_seq')'''.format(val[0]))
 
 
 @app.route('/')
@@ -53,8 +72,8 @@ def display():
         
         #cur.commit()
         cur.execute('''create view filter_ratings as
-            select distinct id, title, average_rating
-                from books where average_rating > {0} '''.format(rating))
+            select distinct b.id, b.title, a.avg
+                from books b, average_rate a where a.avg > {0} and a.id = b.id'''.format(rating))
         
         cur.execute('''create view filter_tags as
                 select distinct b.id, b.title 
@@ -70,17 +89,17 @@ def display():
                 where a.num between {0} and {1} '''.format(publication[1:5], publication[6:10]))
 
         if lang == 'Any':
-            cur.execute('''create materialized view result as select distinct b.id, fr.title, fr.average_rating, fy.num, b.ratings_count, b.authors
+            cur.execute('''create materialized view result as select distinct b.id, fr.title, fr.avg, fy.num, b.ratings_count, b.authors
                 from filter_ratings fr, filter_tags ft, filter_year fy, books b
-                where fr.id = ft.id and ft.id = fy.id and fy.id = b.id ''')
+                where fr.id = ft.id and ft.id = fy.id and fy.id = b.id order by fr.title''')
             conn.commit()
         else:
-            cur.execute('''create materialized view result as select distinct b.id, fr.title, fr.average_rating, fy.num, b.ratings_count, b.authors
+            cur.execute('''create materialized view result as select distinct b.id, fr.title, fr.avg, fy.num, b.ratings_count, b.authors
                 from filter_ratings fr, filter_tags ft, filter_year fy, books b
-                where fr.id = ft.id and ft.id = fy.id and fy.id = b.id and b.language_code = '{0}' '''.format(lang))
+                where fr.id = ft.id and ft.id = fy.id and fy.id = b.id and b.language_code = '{0}' order by fr.title'''.format(lang))
             conn.commit()
-            
-        cur.execute('''select title, average_rating, authors, id from result''')
+        cur.execute('''create index if not exists res on result(avg, num, ratings_count)''')
+        cur.execute('''select title, ROUND(avg::numeric,2) , authors, id from result''')
         
         item = []
         row = cur.fetchone()
@@ -101,15 +120,15 @@ def sort(value):
     cur = conn.cursor()
     if value == 'Rating':
         cur.execute(
-            '''Select title, average_rating, authors , id from result order by average_rating desc''')
+            '''Select title, ROUND(avg::numeric,2), authors , id from result order by avg desc''')
 
     elif value == 'Popularity':
         cur.execute(
-                '''Select title, average_rating, authors, id from result order by ratings_count desc''')
+                '''Select title, ROUND(avg::numeric,2), authors, id from result order by ratings_count desc''')
             
     elif value == 'Publication':
         cur.execute(
-                    '''Select title, average_rating, authors, id from result order by num desc''')
+                    '''Select title, ROUND(avg::numeric,2), authors, id from result order by num desc''')
     item = []
     row = cur.fetchone()
     while row is not None:
@@ -134,15 +153,11 @@ def user_page():
     cur.execute('''select from (select distinct a.user_id 
 from (select distinct user_id 
 from ratings
-union all (select distinct user_id from to_read)) a) b where b.user_id = '{0}' '''.format(user))
+union all (select distinct user_id from to_read)) a) b where b.user_id = {0} '''.format(user))
     item = cur.fetchall()
     if item:
         # leaderboard
-        cur.execute('''select ROW_NUMBER() OVER(ORDER BY (SELECT 1)) as sno, user_id, count as score
-        from (select user_id, count(*)
-        from ratings 
-        group by user_id
-        order by count desc) a limit 10''')
+        cur.execute('''select * from leaderboard limit 10''')
         leader_result = []
         row = cur.fetchone()
         while row is not None:
@@ -152,8 +167,8 @@ union all (select distinct user_id from to_read)) a) b where b.user_id = '{0}' '
         cur.execute('''select distinct a.id, b.title 
 from books b, (select book_id as id
 from to_read
-where user_id = '{0}') a
-where a.id = b.id limit 10''')
+where user_id = {0}) a
+where a.id = b.id limit 10'''.format(user))
         wishlist = []
         row = cur.fetchone()
         while row is not None:
@@ -163,15 +178,21 @@ where a.id = b.id limit 10''')
         cur.execute('''select distinct b.id, b.title
 from (select book_id
 from ratings 
-where user_id = '{0}') a, books b
+where user_id = {0}) a, books b
 where a.book_id = b.id limit 10'''.format(user))
         read_books = []
         row = cur.fetchone()
         while row is not None:
             read_books.append(row)
             row = cur.fetchone()
-
-        return render_template('user_page.html', leader = leader_result, desire = wishlist, read = read_books)
+        #user score
+        cur.execute('''select score from leaderboard where user_id = {0} '''.format(user))
+        if cur.fetchone():
+            score = cur.fetchone()
+        else: 
+            score = 0
+        #print(score)
+        return render_template('user_page.html', leader = leader_result, desire = wishlist, read = read_books, rank = score)
 
     else:
         return render_template('login.html', message="USER DOES NOT EXISTS")
@@ -182,16 +203,28 @@ def info(value):
     conn = psycopg2.connect(database="postgres", user="postgres",
                             password="123post", host="127.0.0.1", port="5432")
     cur = conn.cursor()
-    cur.execute(
-        '''select b.title, b.authors, a.rate_count,
+    cur.execute('''select b.title, b.authors, a.rate_count,
 TO_NUMBER(b.original_publication_year,'9999') as num,
 c.read_count, b.image_url, b.average_rating
-from books b, (select count(*) as rate_count from ratings where book_id='{0}') a,
-			   (select count(*) as read_count from to_read where book_id = '{0}') c
-where b.id = '{0}' '''.format(value))
+from books b, (select count(*) as rate_count from ratings where book_id={0}) a,
+			   (select count(*) as read_count from to_read where book_id = {0}) c
+where b.id = {0} '''.format(value))
     item = cur.fetchall()
-    #print(item)
-    return render_template('info.html', ans = item[0])
+    cur.execute('''select tag_id from book_tags 
+where goodreads_book_id = {0} '''.format(value))
+    cur.execute('''select a.tag_name from tags a, (select tag_id, count from book_tags 
+        where goodreads_book_id = {0}) b
+        where b.tag_id = a.tag_id
+        order by b.count desc limit 10'''.format(value))
+    desc = []
+    row = cur.fetchone()
+    while row is not None:
+        desc.append(row)
+        row = cur.fetchone()
+    if desc == []:
+        return render_template('info.html', ans = item[0], description = "No description to display")
+    else:
+        return render_template('info.html', ans = item[0], description = desc)
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -204,7 +237,6 @@ def add():
 @app.route('/success', methods=['GET', 'POST'])
 def success():
     return render_template('success.html')
-
 
 conn.commit()
 conn.close()
