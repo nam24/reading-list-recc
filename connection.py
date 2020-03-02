@@ -15,17 +15,40 @@ cur.execute('''create materialized view if not exists average_rate as
 select id, (ratings_1*1 + ratings_2*2+ratings_3*3+ratings_4*4+ratings_5*5)*1.0/(ratings_1+ ratings_2+ratings_3+ratings_4+ratings_5)
 from books''')
 cur.execute('''create index if not exists book on books (title); create index if not exists tag on tags (tag_name)''')
-cur.execute('''ALTER TABLE books ALTER COLUMN ratings_count SET DEFAULT 1; ''')
+cur.execute('''ALTER TABLE books ALTER COLUMN ratings_count SET DEFAULT 0;
+ ALTER TABLE books ALTER COLUMN ratings_1 SET DEFAULT 0;
+ ALTER TABLE books ALTER COLUMN ratings_2 SET DEFAULT 0;
+ ALTER TABLE books ALTER COLUMN ratings_3 SET DEFAULT 0;
+ ALTER TABLE books ALTER COLUMN ratings_4 SET DEFAULT 0;
+ ALTER TABLE books ALTER COLUMN ratings_5 SET DEFAULT 0;
+ ALTER TABLE books ALTER COLUMN average_rating SET DEFAULT 0; ''')
 cur.execute('''alter table books drop constraint if exists books_pkey;
 alter table books add primary key(id); alter table users drop constraint if exists users_pkey;
 alter table users add primary key(userid); alter table tags drop constraint if exists tags_pkey;
-alter table tags add primary key(tag_id)''')
+alter table tags add primary key(tag_id);
+alter table ratings drop constraint if exists ratings_fkey;
+ALTER TABLE ratings ADD CONSTRAINT ratings_fkey FOREIGN KEY (book_id) REFERENCES books(id);''')
 cur.execute('''select max(id) from books''')
 val = cur.fetchone()
 #print(val[0])
 cur.execute('''CREATE SEQUENCE if not exists books_id_seq start with {0};
 ALTER TABLE books ALTER COLUMN id SET DEFAULT nextval('books_id_seq')'''.format(val[0]))
 
+cur.execute('''drop trigger if exists title_trigger on books;
+CREATE OR REPLACE FUNCTION people_insert() RETURNS trigger AS 
+$BODY$
+BEGIN
+   new.original_title:= new.title;
+   new.best_book_id:=new.id;
+   new.book_id:=new.id;
+   insert into ratings(book_id, rating) values(new.id, new.average_rating);
+   RETURN NEW;
+END;
+$BODY$
+language plpgsql; 
+CREATE TRIGGER title_trigger
+before insert on books
+FOR EACH ROW EXECUTE PROCEDURE people_insert();  ''')
 
 @app.route('/')
 def hello():
@@ -150,10 +173,7 @@ def user_page():
                             password="123post", host="127.0.0.1", port="5432")
     cur = conn.cursor()
 
-    cur.execute('''select from (select distinct a.user_id 
-from (select distinct user_id 
-from ratings
-union all (select distinct user_id from to_read)) a) b where b.user_id = {0} '''.format(user))
+    cur.execute('''SELECT * FROM users WHERE userid = {0} '''.format(user))
     item = cur.fetchall()
     if item:
         # leaderboard
@@ -234,9 +254,16 @@ def register():
 def add():
     return render_template('add.html')
 
-@app.route('/success', methods=['GET', 'POST'])
+@app.route('/register/login', methods=['GET', 'POST'])
 def success():
-    return render_template('success.html')
+    user = request.form['username']
+    pw = request.form['password']
+    conn = psycopg2.connect(database="postgres", user="postgres",
+                            password="123post", host="127.0.0.1", port="5432")
+    cur = conn.cursor()
+    cur.execute('''insert into users values({0},'{1}')'''.format(user, pw))
+    conn.commit()
+    return render_template('login.html')
 
 conn.commit()
 conn.close()
