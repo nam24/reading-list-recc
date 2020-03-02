@@ -1,8 +1,6 @@
 <html>
     <head>
-
-        <Title>Home</Title>
-
+        <Title>Add a Book</Title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.8.0/css/bulma.css"/>
 
         <style>
@@ -44,10 +42,10 @@
               <div class="navbar-end">
                 <div class="navbar-item">
                   <div class="buttons">
-                    <a class="navbar-item">
+                    <a class="navbar-item" href = "{{url_for('register')}}">
                       <strong>Sign up</strong>
                     </a>
-                    <a class="navbar-item">
+                    <a class="navbar-item" href = "{{url_for('login')}}">
                       Log in
                     </a>
                   </div>
@@ -59,12 +57,10 @@
             <div class="hero-body">
               <div class="container">
                 <h1 class="title">
-
-                  Reading List Recommendations
+                  Add a Book
                 </h1>
                 <h2 class="subtitle">
-                  Get customised book recommendations
-
+                    Add your book if you are not able to find it in our database
                 </h2>
               </div>
             </div>
@@ -72,67 +68,50 @@
         
         
         <div class="content">
-           <form action="{{url_for('display')}}" method = "POST">
-
-            <div class="field">
-                <label class="label">Tags</label>
-                <div class="control">
-                  <input class="input" type="text" placeholder="Enter tag names for your search" name = "tags">
+           <form action="{{url_for('success')}}" method = "POST">
+                <div class="columns">
+                    <div class="column">
+                        <div class="field">
+                            <label class="label">Title</label>
+                            <div class="control">
+                              <input class="input" type="text" placeholder="Enter title of the book" name = "new_title" required>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label">Tags (space seperated if multiple)</label>
+                            <div class="control">
+                              <input class="input" type="text" placeholder="Enter tag names for the book" name = "new_tags" required>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label">Your Rating (out of 5)</label>
+                            <div class="control">
+                                <input class="input" type="text" placeholder="Enter rating of the book" name = "new_rate" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="field">
+                            <label class="label">Language</label>
+                            <div class="control">
+                                <input class="input" type="text" placeholder="Enter language of the book" name = "new_lang" required>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label">Publication Year</label>
+                            <div class="control">
+                                <input class="input" type="text" placeholder="Enter tag names for your search" name = "new_year" required>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label">Image URL</label>
+                            <div class="control">
+                                <input class="input" type="text" placeholder="Enter image url of the book" name = "new_iurl" required>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              </div>
-                            
-              <div class="field">
-                <label class="label">Rating</label>
-                <div class="control">
-                  <div class="select">
-                    <select name = "rate">
-                      <option value = 0>Any</option>
-                      <option value = 4>>4</option>
-                      <option value = 3>>3</option>
-                      <option value = 2>>2</option>
-                      <option value = 1>>1</option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-
-              <div class="field">
-                <label class="label">Language</label>
-                <div class="control">
-                  <div class="select is-multiple">
-                    <select name = "language">
-                    {% if lang %}
-                    {% for i in lang %}
-                    <option value = '{{i}}'>{{i}}</option>
-                    {% endfor %}
-                    {% endif %}
-                    </select>
-                  </div>
-                </div>
-              </div>
-
-              <div class="field">
-                <label class="label">Publication Year</label>
-                <div class="control">
-                  <div class="select is-multiple">
-                    <select name = "year">
-                      <option value = [0,1800]>Before 1800</option>
-                      <option value = [1800,1825]>Between 1800 and 1825</option>
-                      <option value = [1825,1850]>Between 1825 and 1850</option>
-                      <option value = [1850,1875]>Between 1850 and 1875</option>
-                      <option value = [1875,1900]>Between 1875 and 1900</option>
-                      <option value = [1900,1925]>Between 1900 and 1925</option>
-                      <option value = [1925,1950]>Between 1925 and 1950</option>
-                      <option value = [1950,1975]>Between 1950 and 1975</option>
-                      <option value = [1975,2000]>Between 1975 and 2000</option>
-                      <option value = [2000,2025]>After 2000</option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-              <br>
-
-
+            
               <div class="field is-grouped">
                 <div class="control">
                   <input type="submit" value="Submit" class="button is-link"><br />

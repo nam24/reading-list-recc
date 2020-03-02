@@ -1,0 +1,66 @@
+<html>
+    <head>
+        <Title>Home</Title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.8.0/css/bulma.css"/>
+
+        <style>
+            body {
+                height: 100%;
+                max-width: 100%;
+            }
+            .content {
+                margin-top: 5vh;
+                margin-left: 10vw;
+                margin-right: 50vh;
+            }
+            select {
+                width: 50vh;
+            }
+            .input {
+                width: 60vh;
+            }
+            .button {
+                width: 10vw;
+                height: 5vh;
+            }
+            
+        </style>
+    </head>
+    <body>
+        <nav class="navbar is-transparent" role="navigation" aria-label="main navigation">
+            <div id="navbarBasicExample" class="navbar-menu">
+              <div class="navbar-start">
+                <a class="navbar-item">
+                  Home
+                </a>
+          
+                <a class="navbar-item">
+                  Documentation
+                </a>
+              </div>
+          
+              <div class="navbar-end">
+                <div class="navbar-item">
+                  <div class="buttons">
+                    <a class="navbar-item">
+                      <strong>Sign up</strong>
+                    </a>
+                    <a class="navbar-item" href = "{{url_for('login')}}">
+                      Log in
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </nav>
+          <section class="hero is-link is-bold">
+            <div class="hero-body">
+              <div class="container">
+                <h2 class="subtitle">
+                  Record successfully added
+                </h2>
+              </div>
+            </div>
+          </section>
+    </body>
+</html>

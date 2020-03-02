@@ -25,7 +25,6 @@
                   Documentation
                 </a>
               </div>
-     
             </div>
           </nav>
           <section class="hero is-link is-bold">
@@ -65,6 +64,11 @@
                       </div>
                   </div>
                   <div class="column">Description</div>
+                  {% if description %}
+                  {% for i in description %}
+                  {{i}}<br>
+                  {% endfor %}
+                  {% endif %}
                 </div>
 				      </div>
 			      </div>

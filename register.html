@@ -32,12 +32,12 @@
   		<div  class="card-wrapper">
   			<div class="card" style="width:100%;max-width:500px;margin:auto;">
   				<div class="card-header">
-  					<p class="card-header-title">
+  					<p class="card-header-title" href = "{{url_for('register')}}">
   						Register
   					</p>
   				</div>
   				<div class="card-content">
-  					<form   method="post" enctype="multipart/form-data" autocomplete="off" onsubmit="return Verify()" name="myform">
+  					<form href="{{url_for('success')}}"  method="post" enctype="multipart/form-data" autocomplete="off" onsubmit="return Verify()" name="myform">
   						<div class="field">
                         Enter a username:
   							<p class="control has-icons-left has-icons-right">
@@ -63,7 +63,10 @@
   							</p>
   						</div>
   					</form>
-  				</div>
+				  </div>
+				  {% if message %}
+				  {{message}}
+				  {% endif %}
   			</div>
   		</div>
 
