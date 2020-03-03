@@ -23,11 +23,11 @@
                 width: 10vw;
                 height: 5vh;
             }
-.divScroll {
-overflow:scroll;
-height:100px;
-width:200px;
-}    
+            .divScroll {
+                overflow:scroll;
+                height:100px;
+                width:200px;
+            }    
         </style>
     </head>
     <body>
@@ -83,7 +83,14 @@ width:200px;
                 {% endfor %}
                 {% endif %}
             </table>
-    
+            <div class="columns">
+                <div class="column"></div>
+                <div class="column"></div>
+            </div>
+            <div>
+                <button>Add a Book to the database</button>
+                <button>Add a book to your wishlist</button>
+            </div>
           </div>
     </body>
 </html>
