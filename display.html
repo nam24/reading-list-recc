@@ -1,6 +1,6 @@
 <html>
   <head>
-    <title>Home</title>
+    <title>Recommendations</title>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.8.0/css/bulma.css"
@@ -16,11 +16,7 @@
     </style>
   </head>
   <body>
-    <nav
-      class="navbar is-transparent"
-      role="navigation"
-      aria-label="main navigation"
-    >
+    <nav class="navbar is-transparent" role="navigation" aria-label="main navigation">
       <div id="navbarBasicExample" class="navbar-menu">
         <div class="navbar-start">
           <a class="navbar-item">
@@ -74,12 +70,14 @@
 
       <table>
         <tr>
+          <th></th>
           <th>Title</th>
           <th>Rating</th>
           <th>Author</th>
         </tr>
         {% if message %} {% for i in message %}
         <tr>
+          <td><img class="image is-32x32" src="" alt={{i[0]}}></td>
           <td><a href="{{url_for('info', value = i[3])}}">{{i[0]}}</a></td>
           <td>{{i[1]}}</td>
           <td>{{i[2]}}</td>
