@@ -1,6 +1,6 @@
 <html>
     <head>
-        <Title>Home</Title>
+        <Title>Your Profile</Title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.8.0/css/bulma.css"/>
 
         <style>
@@ -44,33 +44,46 @@ width:200px;
               </div>
         </div>
         </nav>
-        <h1>{{rank}}</h1>
-        <table class = "divScroll">
-            {% if leader %}
-            {% for i in leader %}
-            <tr>
-                <td> {{i}}</td>
-            </tr>
-            {% endfor %}
-            {% endif %}
-        </table>
-        <table class = "divScroll">
-            {% if desire %}
-            {% for i in desire %}
-            <tr>
-                <td><a href = "{{url_for('info', value = i[0])}}"> {{i[1]}}</a></td>
-            </tr>
-            {% endfor %}
-            {% endif %}
-        </table>
-        <table class = "divScroll">
-            {% if read %}
-            {% for i in read %}
-            <tr>
-                <td><a href = "{{url_for('info', value = i[0])}}"> {{i[1]}}</a></td>
-            </tr>
-            {% endfor %}
-            {% endif %}
-        </table>
+        <section class="hero is-link is-bold">
+            <div class="hero-body">
+              <div class="container">
+                <h1 class="title">
+                  Hi User name! 
+                </h1>
+                <h2 class="subtitle">Welcome back!</h2>
+              </div>
+            </div>
+          </section>
+          <div class="content">
+            <h1>{{rank}}</h1>
+            <table class = "divScroll">
+                {% if leader %}
+                {% for i in leader %}
+                <tr>
+                    <td> {{i}}</td>
+                </tr>
+                {% endfor %}
+                {% endif %}
+            </table>
+            <table class = "divScroll">
+                {% if desire %}
+                {% for i in desire %}
+                <tr>
+                    <td><a href = "{{url_for('info', value = i[0])}}"> {{i[1]}}</a></td>
+                </tr>
+                {% endfor %}
+                {% endif %}
+            </table>
+            <table class = "divScroll">
+                {% if read %}
+                {% for i in read %}
+                <tr>
+                    <td><a href = "{{url_for('info', value = i[0])}}"> {{i[1]}}</a></td>
+                </tr>
+                {% endfor %}
+                {% endif %}
+            </table>
+    
+          </div>
     </body>
 </html>
