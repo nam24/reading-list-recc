@@ -13,8 +13,6 @@
                 margin-left: 15vw;
                 margin-right: 15vw;
             }
-           
-           
             .button {
                 width: 20vw;
                 height: 7vh;
@@ -79,17 +77,11 @@
                                 {% if desire != ["None"]: %}
                                 {% for i in desire: %}
                                 <tr>
-
                                     <td><a href = "{{url_for('info', value = i[0])}}"> {{i[1]}}</a></td>
                                 </tr>
                                 {% endfor %}
                                 {% endif %}
                             </table>
-                            <div class="field">
-                                <p class="control" style="margin-top:1.5rem;">
-                                    <strong><input id="button" type="submit" value="Add to Read Books" name="login" class="button is-link is-light"/></strong>
-                                </p>
-                            </div>
                         </form>
                     </div>
                     <div class="column">
@@ -99,17 +91,11 @@
                                 {% if read != ["None"] %}
                                 {% for i in read %}
                                 <tr>
-                                  
                                     <td><a href = "{{url_for('info', value = i[0])}}"> {{i[1]}}</a></td>
                                 </tr>
                                 {% endfor %}
                                 {% endif %}
                             </table>
-                            <div class="field">
-                                <p class="control" style="margin-top:1.5rem;">
-                                    <strong><input id="button" type="submit" value="Add to Read Books" name="login" class="button is-link is-light"/></strong>
-                                </p>
-                            </div>
                         </form>
                     </div>
                 </div>
