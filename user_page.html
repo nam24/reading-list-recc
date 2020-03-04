@@ -1,6 +1,6 @@
 <html>
     <head>
-        <Title>Home</Title>
+        <Title>Your Profile</Title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.8.0/css/bulma.css"/>
 
         <style>
@@ -10,8 +10,8 @@
             }
             .content {
                 margin-top: 5vh;
-                margin-left: 10vw;
-                margin-right: 50vh;
+                margin-left: 15vw;
+                margin-right: 15vw;
             }
             select {
                 width: 50vh;
@@ -20,57 +20,124 @@
                 width: 60vh;
             }
             .button {
-                width: 10vw;
-                height: 5vh;
+                width: 20vw;
+                height: 7vh;
             }
-.divScroll {
-overflow:scroll;
-height:100px;
-width:200px;
-}    
+            .divScroll {
+                overflow:scroll;
+                height:100px;
+                width:200px;
+            }    
         </style>
     </head>
     <body>
         <nav class="navbar is-transparent" role="navigation" aria-label="main navigation">
             <div id="navbarBasicExample" class="navbar-menu">
               <div class="navbar-start">
-                <a class="navbar-item">
+                <a class="navbar-item" href = "{{url_for('hello')}}">
                   Home
-                </a>
-          
-                <a class="navbar-item">
-                  Documentation
                 </a>
               </div>
         </div>
         </nav>
-        <h1>{{rank}}</h1>
-        <table class = "divScroll">
-            {% if leader %}
-            {% for i in leader %}
-            <tr>
-                <td> {{i}}</td>
-            </tr>
-            {% endfor %}
-            {% endif %}
-        </table>
-        <table class = "divScroll">
-            {% if desire %}
-            {% for i in desire %}
-            <tr>
-                <td><a href = "{{url_for('info', value = i[0])}}"> {{i[1]}}</a></td>
-            </tr>
-            {% endfor %}
-            {% endif %}
-        </table>
-        <table class = "divScroll">
-            {% if read %}
-            {% for i in read %}
-            <tr>
-                <td><a href = "{{url_for('info', value = i[0])}}"> {{i[1]}}</a></td>
-            </tr>
-            {% endfor %}
-            {% endif %}
-        </table>
+        <section class="hero is-link is-bold">
+            <div class="hero-body">
+              <div class="container">
+                <h1 class="title">
+                  Hi {{user}} !
+                </h1>
+                <h2 class="subtitle">Welcome back!</h2>
+              </div>
+            </div>
+          </section>
+          <div class="content">
+            <h1>Your position on the leaderboard is {{rank}} with a score of {{score}}.</h1><br>
+            <div class="columns">
+                <div class="column is-one-fifth"></div>
+                <div class="column">
+                    <table class="divScroll table is-full-width is-striped">
+                        {% if leader %}
+                        <tr>
+                            <td>Rank</td>
+                            <td>user ID</td>
+                            <td>No of books he has read</td>
+                        </tr>
+                        {% for i in leader %}
+                        <tr>
+                            <td>{{i[0]}}</td>
+                            <td> {{i[1]}}</td>
+                            <td> {{i[2]}}</td>
+                        </tr>
+                        {% endfor %}
+                        {% endif %}
+                    </table>
+                </div>
+                <div class="column is-one-fifth"></div>
+            </div>
+            <div>
+                <form action="{{url_for('to_read', value = user) }}" method = "POST">
+                     <div class="columns">
+                           <div class="field">
+                             <label class="label">Write the exact title of book to be added to wishlist</label>
+                             <div class="control">
+                               <input class="input" type="int" placeholder="Enter exact title in the database" name = "read">
+                               <input type="submit" value="Submit" /><br />
+                             </div>
+                            </div>
+                            </div>
+                             </form>
+                             </div><br>
+        <form action = "{{url_for('read_book', value = user)}}", method = "POST">
+                                <div>
+                                  <div class="select">
+                                    <select name = "rate">
+                                        {% if desire %}
+                                        {% for i in desire %}
+                                        <option value = {{i[0]}}>{{i[1]}}</option> 
+                                        {% endfor %}
+                                        {% endif %}
+                                    </select>
+                                    <input class="input" type="int" placeholder="Enter rating of the book" name = "rate_book">
+                                    <input type="submit" value="Submit" /><br />
+                                  </div>
+                                </div>
+                            </from>
+                            <br>
+                            <br>
+                            <br>
+
+            <div class="columns is-variable is-8">
+                <div class="column">
+                    <table class = "divScroll">
+                        <tr>
+                            <td>WISHLIST</td>
+                        </tr>
+                        {% if desire %}
+                        {% for i in desire %}
+                        <tr>
+                            <td><a href = "{{url_for('info', value = i[0])}}"> {{i[1]}}</a></td>
+                        </tr>
+                        {% endfor %}
+                        {% endif %}
+                    </table>
+                </div>
+                <div class="column">
+                    <table class = "divScroll">
+                        <tr>
+                            <td>BOOKS ALREADY READ</td>
+                        </tr>
+                        {% if read %}
+                        {% for i in read %}
+                        <tr>
+                            <td><a href = "{{url_for('info', value = i[0])}}"> {{i[1]}}</a></td>
+                        </tr>
+                        {% endfor %}
+                        {% endif %}
+                    </table>
+                </div>
+            </div>
+          </div>
+          
+            
     </body>
 </html>
