@@ -91,9 +91,10 @@
                                 <div>
                                   <div class="select">
                                     <select name = "rate">
-                                        {% if desire %}
-                                        {% for i in desire %}
-                                        <option value = {{i[0]}}>{{i[1]}}</option> 
+                                        <option>None</option>
+                                        {% if desire != ["None"]: %}
+                                        {% for i in desire: %}
+                                        <option value = {{i[0]}}>{{i[1]}}</option>
                                         {% endfor %}
                                         {% endif %}
                                     </select>
@@ -112,12 +113,16 @@
                         <tr>
                             <td>WISHLIST</td>
                         </tr>
-                        {% if desire %}
+                        {% if desire != ["None"] %}
                         {% for i in desire %}
                         <tr>
                             <td><a href = "{{url_for('info', value = i[0])}}"> {{i[1]}}</a></td>
                         </tr>
                         {% endfor %}
+                        {% else %}
+                        <tr>
+                            <td>None</td>
+                        </tr>
                         {% endif %}
                     </table>
                 </div>
@@ -126,12 +131,16 @@
                         <tr>
                             <td>BOOKS ALREADY READ</td>
                         </tr>
-                        {% if read %}
+                        {% if read != ["None"] %}
                         {% for i in read %}
                         <tr>
                             <td><a href = "{{url_for('info', value = i[0])}}"> {{i[1]}}</a></td>
                         </tr>
                         {% endfor %}
+                        {% else %}
+                        <tr>
+                            <td>None</td>
+                        </tr>
                         {% endif %}
                     </table>
                 </div>
