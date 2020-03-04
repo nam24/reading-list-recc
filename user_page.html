@@ -69,6 +69,39 @@
                     </div>
                     <div class="column is-one-fifth"></div>
                 </div>
+                <section class="hero is-link">
+                    <div class="hero-body">
+                        <div class="container">
+                          <div class="columns is-8 is-variable">
+                            <div class="column">
+                                <form action="{{url_for('to_read', value = user) }}" method = "POST">
+                                    <div class="control">
+                                        <input style="width: 25vw;" class="input is-link" type="int" placeholder="Enter exact title in the database" name = "read">
+                                    </div>
+                                        <br><input style="height: 5vh;" type="submit" value="Add a book to your wishlist" class="button is-link is-inverted" />
+                                </form>
+                            </div>
+                            <div class="column"></div>
+                            <div class="column">
+                                <form action = "{{url_for('read_book', value = user)}}", method = "POST">
+                                    <div class="select">
+                                        <select name = "rate" style="width: 25vw;">
+                                            <option>None</option>
+                                            {% if desire != ["None"]: %}
+                                            {% for i in desire: %}
+                                            <option value = {{i[0]}}>{{i[1]}}</option>
+                                            {% endfor %}
+                                            {% endif %}
+                                        </select>
+                                        <input class="input" type="int" placeholder="Enter rating of the book" name = "rate_book"><br>
+                                        <br><input style="height: 5vh;" type="submit" value="Add Book Rating"  class="button is-link is-inverted" /><br />
+                                    </div>                            
+                                </form>
+                            </div>
+                        </div>
+                      </div>
+                    </div>
+                  </section>
                 <div class="columns is-variable is-8">
                     <div class="column">
                         <strong>Your wishlist</strong> <br>
@@ -100,41 +133,6 @@
                     </div>
                 </div>
             </div>
-                
-            <section class="hero is-link">
-                <div class="hero-body">
-                    <div class="container">
-                      <div class="columns is-8 is-variable">
-                        <div class="column">
-                            <form action="{{url_for('to_read', value = user) }}" method = "POST">
-                                <div class="control">
-                                    <input style="width: 25vw;" class="input is-link" type="int" placeholder="Enter exact title in the database" name = "read">
-                                </div>
-                                    <br><input style="height: 5vh;" type="submit" value="Add a book to your wishlist" class="button is-link is-inverted" />
-                            </form>
-                        </div>
-                        <div class="column"></div>
-                        <div class="column">
-                            <form action = "{{url_for('read_book', value = user)}}", method = "POST">
-                                <div class="select">
-                                    <select name = "rate" style="width: 25vw;">
-                                        <option>None</option>
-                                        {% if desire != ["None"]: %}
-                                        {% for i in desire: %}
-                                        <option value = {{i[0]}}>{{i[1]}}</option>
-                                        {% endfor %}
-                                        {% endif %}
-                                    </select>
-                                    <input class="input" type="int" placeholder="Enter rating of the book" name = "rate_book"><br>
-                                    <br><input style="height: 5vh;" type="submit" value="Add Book Rating"  class="button is-link is-inverted" /><br />
-                                </div>                            
-                            </form>
-                        </div>
-                    </div>
-                  </div>
-                </div>
-              </section>
-            
           </div>
     </body>
 </html>
