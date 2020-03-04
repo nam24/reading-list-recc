@@ -13,12 +13,8 @@
                 margin-left: 15vw;
                 margin-right: 15vw;
             }
-            select {
-                width: 50vh;
-            }
-            .input {
-                width: 60vh;
-            }
+           
+           
             .button {
                 width: 20vw;
                 height: 7vh;
@@ -44,7 +40,7 @@
             <div class="hero-body">
               <div class="container">
                 <h1 class="title">
-                  Hi User name! 
+                  Hi {{user}}! 
                 </h1>
                 <h2 class="subtitle">Welcome back!</h2>
               </div>
@@ -52,19 +48,25 @@
           </section>
           <div class="content">
             <div class="box">
-                <h1>Your position on the leader board is {{rank}}</h1><br>
+                <h2>Your position on the leader board is {{rank}} with a score of {{score}}</h2><br>
                 <div class="columns">
                     <div class="column is-one-fifth"></div>
                     <div class="column">
-                        <table class="divScroll table is-full-width is-striped">
+                        <table class="divScroll table is-full-width is-striped is-bordered">
                             {% if leader %}
-                            {% for i in leader %}
-                            <tr>
-                                <td>rank</td>
-                                <td> {{i}}</td>
-                            </tr>
-                            {% endfor %}
-                            {% endif %}
+                        <tr>
+                            <th>Rank</th>
+                            <th>user ID</th>
+                            <th>No of books he has read</th>
+                        </tr>
+                        {% for i in leader %}
+                        <tr>
+                            <td>{{i[0]}}</td>
+                            <td> {{i[1]}}</td>
+                            <td> {{i[2]}}</td>
+                        </tr>
+                        {% endfor %}
+                        {% endif %}
                         </table>
                     </div>
                     <div class="column is-one-fifth"></div>
@@ -112,19 +114,34 @@
                     </div>
                 </div>
             </div>
-            
-            
                 
             <section class="hero is-link">
                 <div class="hero-body">
-                  <div class="container">
+                    <div class="container">
                       <div class="columns is-8 is-variable">
                         <div class="column">
-                            <button class="button is-link is-inverted">Add a Book to the database</button>
+                            <form action="{{url_for('to_read', value = user) }}" method = "POST">
+                                <div class="control">
+                                    <input style="width: 25vw;" class="input is-link" type="int" placeholder="Enter exact title in the database" name = "read">
+                                </div>
+                                    <br><input style="height: 5vh;" type="submit" value="Add a book to your wishlist" class="button is-link is-inverted" />
+                            </form>
                         </div>
                         <div class="column"></div>
                         <div class="column">
-                            <button class="button is-link is-inverted">Add a book to your wishlist</button>
+                            <form action = "{{url_for('read_book', value = user)}}", method = "POST">
+                                <div class="select">
+                                    <select name = "rate" style="width: 25vw;">
+                                        {% if desire %}
+                                        {% for i in desire %}
+                                        <option value = {{i[0]}}>{{i[1]}}</option> 
+                                        {% endfor %}
+                                        {% endif %}
+                                    </select>
+                                    <input class="input" type="int" placeholder="Enter rating of the book" name = "rate_book"><br>
+                                    <br><input style="height: 5vh;" type="submit" value="Add Book Rating"  class="button is-link is-inverted" /><br />
+                                </div>                            
+                            </form>
                         </div>
                     </div>
                   </div>
