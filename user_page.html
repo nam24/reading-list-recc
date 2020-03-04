@@ -76,8 +76,8 @@
                         <strong>Your wishlist</strong> <br>
                         <form action="">
                             <table class = "divScroll">
-                                {% if desire %}
-                                {% for i in desire %}
+                                {% if desire != ["None"]: %}
+                                {% for i in desire: %}
                                 <tr>
 
                                     <td><a href = "{{url_for('info', value = i[0])}}"> {{i[1]}}</a></td>
@@ -96,7 +96,7 @@
                         <strong>Books you have read</strong> <br>
                         <form action="">
                             <table class = "divScroll">
-                                {% if read %}
+                                {% if read != ["None"] %}
                                 {% for i in read %}
                                 <tr>
                                   
@@ -132,9 +132,10 @@
                             <form action = "{{url_for('read_book', value = user)}}", method = "POST">
                                 <div class="select">
                                     <select name = "rate" style="width: 25vw;">
-                                        {% if desire %}
-                                        {% for i in desire %}
-                                        <option value = {{i[0]}}>{{i[1]}}</option> 
+                                        <option>None</option>
+                                        {% if desire != ["None"]: %}
+                                        {% for i in desire: %}
+                                        <option value = {{i[0]}}>{{i[1]}}</option>
                                         {% endfor %}
                                         {% endif %}
                                     </select>
