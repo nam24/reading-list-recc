@@ -267,7 +267,6 @@ where goodreads_book_id = {0} '''.format(value))
 def register():
     return render_template('register.html')
 
-
 @app.route('/get_info', methods=['GET', 'POST'])
 def get_info():
     if request.method == "POST":
