@@ -79,12 +79,8 @@
                                 {% if desire %}
                                 {% for i in desire %}
                                 <tr>
-                                    <td>
-                                        <label class="checkbox">
-                                            <input type="checkbox">
-                                            <a href = "{{url_for('info', value = i[0])}}"> {{i[1]}}</a>
-                                        </label>
-                                    </td>
+
+                                    <td><a href = "{{url_for('info', value = i[0])}}"> {{i[1]}}</a></td>
                                 </tr>
                                 {% endfor %}
                                 {% endif %}
@@ -103,7 +99,7 @@
                                 {% if read %}
                                 {% for i in read %}
                                 <tr>
-                                    <td><input type="checkbox"></td>
+                                  
                                     <td><a href = "{{url_for('info', value = i[0])}}"> {{i[1]}}</a></td>
                                 </tr>
                                 {% endfor %}
@@ -151,6 +147,7 @@
                   </div>
                 </div>
               </section>
-            </div>
+            
+          </div>
     </body>
 </html>
