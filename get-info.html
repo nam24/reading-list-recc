@@ -1,0 +1,77 @@
+<html>
+    <head>
+        <title>Get Information</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.8.0/css/bulma.css"/>
+        <style>        
+            .card-wrapper {
+				display: flex;
+    	        justify-content: center;
+	            align-items: center;
+	            min-height: calc(100vh - 20rem);
+			}
+			.card-header-title {
+                font-size: 2rem
+			}
+        </style>
+    </head>
+    <body>
+        <nav class="navbar is-transparent" role="navigation" aria-label="main navigation">
+            <div id="navbarBasicExample" class="navbar-menu">
+              <div class="navbar-start">
+                <a class="navbar-item">
+                  Home
+                </a>
+              </div>
+              <div class="navbar-end">
+                <div class="navbar-item">
+                  <div class="buttons">
+                    <a class="navbar-item" href = "{{url_for('register')}}">
+                      <strong>Sign up</strong>
+                    </a>
+                    <a class="navbar-item" href = "{{url_for('login')}}">
+                      Log in
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </nav>
+        <section class="hero is-link is-bold">
+            <div class="hero-body">
+              <div class="container">
+                <h1 class="title">
+                  Get book information
+                </h1>
+                <h2 class="subtitle">
+                  Enter the title of a book to get all relevant information
+                </h2>
+              </div>
+            </div>
+          </section>
+
+  		<div  class="card-wrapper">
+  			<div class="card" style="width:100%;max-width:500px;margin:auto;">
+  				<div class="card-header">
+  					<p class="card-header-title" href = "{{url_for('register')}}">
+  						Title of the Book
+  					</p>
+  				</div>
+  				<div class="card-content">
+  					<form href="{{url_for('success')}}"  method="post" enctype="multipart/form-data" autocomplete="off" onsubmit="return Verify()" name="myform">
+  						<div class="field">
+                            <br>
+  							<p class="control">
+  								<input class="input" type="text" placeholder="Enter username" name="username" required >
+  							</p>
+                        </div>
+  						<div class="field">
+  							<p class="control" style="margin-top:1.5rem;">
+  				    			<input style="width:100%;" id="button" type="submit" value="Get Information" name="Register" class="button is-success is-medium"/>
+  							</p>
+  						</div>
+  					</form>
+				  </div>
+  			</div>
+  		</div>
+    </body>
+</html>
