@@ -1,4 +1,4 @@
-# Running the svelte front-end:  
+# Running the intended svelte front-end:  
 
  
 cd client  
@@ -13,3 +13,4 @@ env FLASK_APP=main.py flask run
 
 -- To test server is working, try any api --> url/student works fine  
 
+Front end---> vanilla html
